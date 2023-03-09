@@ -40,3 +40,8 @@ nav ul li a:hover {
 footer ul li {
     list-style: none;
 }
+/*Login*/
+header.barra {
+    background-color: #ffc107d5 !important;
+    transition: all 0.3s;
+}
