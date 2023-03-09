@@ -1,0 +1,15 @@
+.bg {
+    background-image: url(/Assets/fondoLogin.jpg);
+}
+
+.fondoRegistro {
+    background-image: url(/Assets/fondoRegistro.jpg);
+}
+
+.bg-light {
+    --bs-bg-opacity: 0.8;
+}
+
+.pJustificado {
+    text-align: justify;
+}
