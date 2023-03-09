@@ -1,3 +1,18 @@
+.bg {
+    background-image: url(/Assets/fondoLogin.jpg);
+}
+
+.fondoRegistro {
+    background-image: url(/Assets/fondoRegistro.jpg);
+}
+
+.bg-light {
+    --bs-bg-opacity: 0.8;
+}
+
+.pJustificado {
+    text-align: justify;
+}
 /*Animacion para sombreado de links*/
 nav ul li a {
     position: relative;
