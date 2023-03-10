@@ -93,5 +93,40 @@ if (document.title === "Administracion") {
         window.location.reload()
         })
     })
+
+    let usuarioss = []
+    if (localStorage.getItem("Usuario")) {
+        usuarioss = JSON.parse(localStorage.getItem("Usuario"))
+    }
+
+    const usersTemplate = (nombre, apellido, email, password1) => {
+        return `<div class="d-flex flex-column pJustificado">
+            <div class="text-warning fw-bold">
+                <hr>
+            </div>
+            <p class="fw-bold m-1">Nombre: ${nombre}</p>
+            <p class="fw-bold m-1">Apellido: ${apellido}</p>
+            <p class="fw-bold m-1">Contraseña: ${password1}</p>
+            <p class="fw-bold m-1">${email}</p>
+            <button id="${email}" class="btn btn-warning" type="button" id="buttonUsuario">Eliminar</button>
+        </div>`;
+    };
+    
+    let userTemplate = "<div class='d-flex row'>";
+
+    usuarioss.map((element) => {
+        const { nombre, apellido, email, password } =
+        element;
+        userTemplate += usersTemplate(
+        nombre,
+        apellido,
+        email,
+        password,
+        );
+    });
+    
+    userTemplate += "</div>";
+    
+    divUsuarios.innerHTML = userTemplate;
+
 }
-console.log("hola")
