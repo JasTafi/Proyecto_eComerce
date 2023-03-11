@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>document</title>
+    <title>Login</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" href="/styles/styles.css" />
   </head>
-  <body>
+  <body class="bg">
     <header class="bg-warning">
       <nav class="navbar navbar-expand-lg text-white">
         <div class="container-fluid">
@@ -41,20 +41,20 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link text-dark" href="/">Inicio</a>
+                  <a class="nav-link text-dark" href="/html/index.html"
+                    >Inicio</a
+                  >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-dark" href="nosotros.html"
+                  <a class="nav-link text-dark" href="/html/nosotros.html"
                     >Acerca de nosotros</a
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-dark" href="/html/login.html"
-                    >Login</a
-                  >
+                  <a class="nav-link text-dark" href="#">Login</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-dark" href="registro.html"
+                  <a class="nav-link text-dark" href="/html/registro.html"
                     >Registro</a
                   >
                 </li>
@@ -119,6 +119,7 @@
         </div>
       </article>
     </main>
+    <!--Footer-->
     <footer
       class="d-flex flex-md-row flex-column justify-content-between bg-warning"
     >
@@ -132,10 +133,10 @@
       </div>
       <!--contacto-->
       <div
-        class="col-md-5 d-flex flex-column align-items-center justify-content-center"
+        class="col-md-5 d-flex flex-column align-items-center justify-content-center container-fluid"
       >
         <p class="pt-2 fw-light fs-3">CONTACTO</p>
-        <ul class="d-flex fs-5 container-fluid">
+        <ul class="d-flex fs-5">
           <li class="mx-1">
             <a class="text-decoration-none text-dark" href="#" target="_blank">
               <svg
@@ -216,7 +217,7 @@
         class="col-md-4 d-flex align-items-center justify-content-center p-2"
       >
         <iframe
-            class="container-fluid"
+          class="container-fluid"
           src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d16935.512002586678!2d-65.21092054108058!3d-26.831909519105203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1scomputacion!5e0!3m2!1ses-419!2sar!4v1677371768954!5m2!1ses-419!2sar"
           width="560"
           height="140"
@@ -227,6 +228,9 @@
         ></iframe>
       </div>
     </footer>
+    <!--Script propio-->
+    <script src="/js/script.js"></script>
+    <!--Script BS-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
