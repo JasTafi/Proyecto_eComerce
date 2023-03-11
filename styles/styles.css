@@ -36,6 +36,13 @@ nav ul li a:hover::after {
 nav ul li a:hover {
     color: #5a5a5a !important;
 }
+/*Estilos Modal*/
+.estiloModal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
 /*Footer*/
 footer ul li {
     list-style: none;
