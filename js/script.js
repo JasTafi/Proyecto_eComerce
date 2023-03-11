@@ -1,3 +1,6 @@
+if(document.tittle="Index") {
+    
+}
 if(document.title=="Login"){
     const inputUsuario = document.getElementById("inputUsuario")
     const inputContraseña = document.getElementById("inputContraseña")
