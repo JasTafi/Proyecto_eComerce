@@ -1,22 +1,74 @@
-if(document.title=="Login"){
-    const inputUsuario = document.getElementById("inputUsuario")
-    const inputContraseña = document.getElementById("inputContraseña")
-    const botonLogin = document.getElementById("botonLogin")
-
-    let usuarioAdmin = "rollingperifericos@gmail.com"
-    let contraseñaAdmin = "rolling123"
-
-    let usuariosRegistrados = []
-    if (localStorage.getItem("usuarioLogin")) {
-    usuariosRegistrados = JSON.parse(localStorage.getItem("usuarioLogin"))
+if (document.title === "login") {
+    const inputUsuario = document.getElementById("inputUsuario");
+    const inputContraseña = document.getElementById("inputContraseña");
+    const botonLogin = document.getElementById("botonLogin");
+    const navBarAdministracion = document.getElementById("navBarAdministracion");
+    const navBarLogin = document.getElementById("navBarLogin");
+    const navBarRegistro = document.getElementById("navBarRegistro");
+  
+    const usuarioAdmin = "rollingperifericos@gmail.com";
+    const contraseñaAdmin = "rolling123";
+  
+    let usuarios = [];
+    if (localStorage.getItem("Usuario")) {
+      usuarios = JSON.parse(localStorage.getItem("Usuario"));
     }
-
+  
+    let usuarioLogins = [];
+    if (localStorage.getItem("usuarioLogins")) {
+      usuarioLogins = JSON.parse(localStorage.getItem("usuarioLogins"));
+    }
+  
     class usuarioLogin {
-    constructor( usuario, contraseña){
-        this.usaurio = usuario
-        this.contraseña = contraseña
+      constructor(usuario, contraseña) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+      }
     }
-    }
+  
+    botonLogin.addEventListener("click", (e) => {
+      const usuario = inputUsuario.value;
+      const contraseña = inputContraseña.value;
+  
+      const usuarioExiste = usuarios.filter(
+        (x) => x.email === usuario && x.password === contraseña
+      );
+  
+      if (
+        usuarioExiste[0] &&
+        usuarioExiste[0].email == usuarioAdmin &&
+        usuarioExiste[0].password == contraseñaAdmin
+      ) {
+        navBarLogin.className = "nav-link text-dark d-none";
+        navBarRegistro.className = "nav-link text-dark d-none";
+        navBarAdministracion.className = "nav-link text-dark d-block";
+        navBarLogOut.className =
+          "nav-link text-dark d-block rounded-3 btn btn-warning";
+        usuarioLogins.push(usuarioExiste[0]);
+        localStorage.setItem("usuarioLogins", JSON.stringify(usuarioLogins));
+        location.href = "/administracion.html";
+      } else if (usuarioExiste[0]) {
+        navBarLogin.className = "nav-link text-dark d-none";
+        navBarRegistro.className = "nav-link text-dark d-none";
+        navBarLogOut.className =
+          "nav-link text-dark d-block rounded-3 btn btn-warning";
+        usuarioLogins.push(usuarioExiste[0]);
+        localStorage.setItem("usuarioLogins", JSON.stringify(usuarioLogins));
+        location.href = "/index.html";
+      } else {
+        alert("Usuario y/o contraseña no se encuentra en la base de datos.");
+      }
+    });
+  
+    navBarLogOut.addEventListener("click", () => {
+      let respuesta = confirm("¿Seguro quiere cerrar sesion?");
+      if (respuesta) {
+        localStorage.removeItem("usuarioLogins");
+        location.href = "/index.html";
+      }
+    });
+  }
+
 if (document.title === "Administracion") {
     const botonAgregar = document.getElementById("button-addon2")
     const inputNombre = document.getElementById("inputNombre")
@@ -145,6 +197,13 @@ if (document.title === "Administracion") {
     });
     
     userTemplate += "</div>";
+    
+    divUsuarios.innerHTML = userTemplate;
+
+}
+
+if(document.title==="registro") {
+
 const botonRegistro = document.getElementById("button-addon2")
 const inputNombre = document.getElementById("inputNombreU")
 const inputApellido = document.getElementById("inputApellido")
@@ -165,26 +224,7 @@ class Usuario {
         this.password = password1
     }
 }
-    
 
-    divUsuarios.innerHTML = userTemplate;
-
-}
-if(document.title=="Registro"){
-    botonLogin.addEventListener("click", (e) => {
-    const usuario = inputUsuario.value
-    const contraseña = inputContraseña.value
-    const nuevoUsuarioRegistrado = new usuarioLogin( usuario, contraseña )
-    usuariosRegistrados.push(nuevoUsuarioRegistrado)
-    localStorage.setItem('usuarioLogin', JSON.stringify(usuariosRegistrados))
-    if (usuario === usuarioAdmin && contraseña === contraseñaAdmin) {
-        location.href ="/html/administracion.html";
-    } else {
-        alert("Usuario y/o contraseña incorrecto.")//agregar cuadro de notificacion
-    }
-    })
-}
-}
 botonRegistro.addEventListener("click", (e) => {
     const nombre = inputNombre.value
     const apellido = inputApellido.value
@@ -207,3 +247,85 @@ botonRegistro.addEventListener("click", (e) => {
     alert("Gracias por registrarse")
     location.href ="/index.html";
   })
+
+}
+
+if (document.title==="detalle de producto") {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramId = urlParams.get("id");
+  
+    let agregados = []
+    if (localStorage.getItem("agregados")) {
+        agregados = JSON.parse(localStorage.getItem("agregados"))
+    }
+    
+    let productosEnCarrito = [];
+    if (localStorage.getItem("productosEnCarrito")) {
+      productosEnCarrito = JSON.parse(localStorage.getItem("productosEnCarrito"));
+    }
+  
+    const existeId = agregados.filter((x) => x.id == paramId);
+  
+    const divApp = document.querySelector("#tarjeta")
+      
+    const cardTemplate = (nombre, id, categoria, precio, imagen, stock, descripcion) => {
+      return `<div class="m-5 d-flex justify-content-between">
+                <div class="d-flex flex-column m-3">
+                  <img src="${imagen}" class="m-3" alt="...">
+                  <button class="rounded-3 btn btn-warning" id="agregarProductoCarro">Agregar al carrito</button>
+                </div>
+                <div class="col-1"></div>
+                <div class="d-flex flex-column">
+                  <h1 class="col-8 mx-2 my-4">${nombre}</h1>
+                  <p class="m-2">Codigo unico del producto: ${id}</p>
+                  <div class="text-warning fw-bold">
+                    <hr>
+                  </div>
+                  <p class="fs-2 fw-bold">$ ${precio}</p>
+                  <div class="m-2 d-flex">
+                    <p class="fw-bold">Categoria:</p>
+                    <p class="mx-2">${categoria}</p>
+                  </div>
+                  <div class="m-2 d-flex">
+                    <p class="fw-bold">Stock disponible:</p>
+                    <p class="mx-2">${stock}</p>
+                  </div>
+                  <div class="m-2 d-flex">
+                    <p class="fw-bold">Descripcion de este producto:</p>
+                    <p class="mx-2 pJustificado">${descripcion}</p>
+                  </div>
+                </div>
+              </div>`;
+    };
+    
+  
+    let htmlTemplate = "<div class='d-flex row mx-2 justify-content-around'>";
+    
+    existeId.map((element) => {
+      const { nombre, id, categoria, precio, imagen, stock, descripcion } =
+        element;
+      htmlTemplate += cardTemplate(
+        nombre,
+        id,
+        categoria,
+        precio,
+        imagen,
+        stock,
+        descripcion,
+      );
+    });
+    
+    htmlTemplate += "</div>";
+    
+    divApp.innerHTML = htmlTemplate;
+  
+    if (agregarProductoCarro){ 
+      agregarProductoCarro.addEventListener("click",() => {
+        productosEnCarrito.push(existeId) 
+        localStorage.setItem('productos', JSON.stringify(productosEnCarrito))
+      }
+      )}
+  
+  }
+  
