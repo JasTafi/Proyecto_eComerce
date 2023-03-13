@@ -1,0 +1,44 @@
+.bg {
+    background-image: url(/Assets/fondoLogin.jpg);
+}
+
+.bgPrincipal {
+    background-color: #150050;
+}
+
+.bgFondo {
+    background-color: #300857;
+}
+
+.bgLila {
+    background-color: #3F0071;
+}
+
+.bgMorado {
+    background-color: #610094;
+}
+
+.border {
+    border-color: #7E29D0 !important;
+}
+
+.fondoRegistro {
+    background-image: url(/Assets/fondoRegistro.jpg);
+}
+
+.bg-light {
+    --bs-bg-opacity: 0.8;
+}
+
+.pJustificado {
+    text-align: justify;
+}
+
+.filtro {
+    display: none;
+}
+.ulBuscar {
+    list-style-type: none;
+    display: none;
+}
+
