@@ -6,8 +6,21 @@
     background-image: url(/Assets/fondoRegistro.jpg);
 }
 
-.bg-light {
-    --bs-bg-opacity: 0.8;
+
+.bgFondo {
+    background-color: #300857;
+}
+
+.bgLila {
+    background-color: #3F0071;
+}
+
+.bgMorado {
+    background-color: #610094;
+}
+
+.border {
+    border-color: #7E29D0 !important;
 }
 
 .pJustificado {
@@ -16,7 +29,7 @@
 /*Animacion para sombreado de links*/
 nav ul li a {
     position: relative;
-    border-bottom: 2px inset #5a5a5a;
+    border-bottom: 2px inset #909090;
     outline: none;
 }
 nav ul li a::after {
@@ -26,7 +39,7 @@ nav ul li a::after {
     left: 0%;
     width: 100%;
     height: 5%;
-    background-color: #ffc107;
+    background-color: #3F0071;
     transform-origin: center;
     transition: 0.4s;
 }
@@ -34,14 +47,9 @@ nav ul li a:hover::after {
     transform: scale(0);
 }
 nav ul li a:hover {
-    color: #5a5a5a !important;
+    color: #909090 !important;
 }
 /*Footer*/
 footer ul li {
     list-style: none;
-}
-/*Login*/
-header.barra {
-    background-color: #ffc107d5 !important;
-    transition: all 0.3s;
 }
