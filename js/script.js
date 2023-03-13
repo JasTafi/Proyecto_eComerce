@@ -1,49 +1,81 @@
-if(document.tittle="Index") {
-    let itemDetalle= [{
-        imagen:"https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcR7QUd3U1NaPfppDhehB9-FencWUb4fu_aRNa3IhaqagYMpZYni3s1ViFYDtjgPUWJ_B09Fxg76eg&usqp=CAc",
-        nombre:"teclado", 
-        precio:"12000",
-        id: "1"
-    }]
-    const cuerpoModal = document.querySelector("#cuerpoModal")
-    itemDetalle.forEach(item => {
-        const div = document.createElement("div")
-        div.classList.add("estiloModal")
-        div.innerHTML=`
-        <img src="${item.imagen}" alt="">
-        <p>${item.nombre}</p>
-        <p>${item.precio}</p>
-        <button class="btn btn-warning" id="${item.id}">eliminar</button>
-        `
-        cuerpoModal.appendChild(div)
-    })
-    const botonesEliminar = document.querySelectorAll("btn")
-    botonesEliminar.forEach((boton => {
-        boton.addEventListener("click", (e) => {
-            e.stopPropagation()
-            console.log(e.target)
-        })
-    }))
+//#region login
+
+if (document.title === "login") {
+  const inputUsuario = document.getElementById("inputUsuario");
+  const inputContraseña = document.getElementById("inputContraseña");
+  const botonLogin = document.getElementById("botonLogin");
+  const navBarAdministracion = document.getElementById("navBarAdministracion");
+  const navBarLogin = document.getElementById("navBarLogin");
+  const navBarRegistro = document.getElementById("navBarRegistro");
+
+  const usuarioAdmin = "rollingperifericos@gmail.com";
+  const contraseñaAdmin = "rolling123";
+
+  let usuarios = [];
+  if (localStorage.getItem("Usuario")) {
+    usuarios = JSON.parse(localStorage.getItem("Usuario"));
+  }
+
+  let usuarioLogins = [];
+  if (localStorage.getItem("usuarioLogins")) {
+    usuarioLogins = JSON.parse(localStorage.getItem("usuarioLogins"));
+  }
+
+  class usuarioLogin {
+    constructor(usuario, contraseña) {
+      this.usuario = usuario;
+      this.contraseña = contraseña;
+    }
+  }
+
+  botonLogin.addEventListener("click", (e) => {
+    const usuario = inputUsuario.value;
+    const contraseña = inputContraseña.value;
+
+    const usuarioExiste = usuarios.filter(
+      (x) => x.email === usuario && x.password === contraseña
+    );
+
+    if (
+      usuarioExiste[0] &&
+      usuarioExiste[0].email == usuarioAdmin &&
+      usuarioExiste[0].password == contraseñaAdmin
+    ) {
+      navBarLogin.className = "nav-link text-dark d-none";
+      navBarRegistro.className = "nav-link text-dark d-none";
+      navBarAdministracion.className = "nav-link text-dark d-block";
+      navBarLogOut.className =
+        "nav-link text-white d-block rounded-3 btn bgLila";
+      usuarioLogins.push(usuarioExiste[0]);
+      localStorage.setItem("usuarioLogins", JSON.stringify(usuarioLogins));
+      location.href = "/administracion.html";
+    } else if (usuarioExiste[0]) {
+      navBarLogin.className = "nav-link text-dark d-none";
+      navBarRegistro.className = "nav-link text-dark d-none";
+      navBarLogOut.className =
+        "nav-link text-white d-block rounded-3 btn bgLila";
+      usuarioLogins.push(usuarioExiste[0]);
+      localStorage.setItem("usuarioLogins", JSON.stringify(usuarioLogins));
+      location.href = "/index.html";
+    } else {
+      alert("Usuario y/o contraseña no se encuentra en la base de datos.");
+    }
+  });
+
+  navBarLogOut.addEventListener("click", () => {
+    let respuesta = confirm("¿Seguro quiere cerrar sesion?");
+    if (respuesta) {
+      localStorage.removeItem("usuarioLogins");
+      location.href = "/index.html";
+    }
+  });
 }
-if(document.title=="Login"){
-    const inputUsuario = document.getElementById("inputUsuario")
-    const inputContraseña = document.getElementById("inputContraseña")
-    const botonLogin = document.getElementById("botonLogin")
+  
+  //#endregion
+if(document.tittle==="Index") {
+    
+}
 
-    let usuarioAdmin = "rollingperifericos@gmail.com"
-    let contraseñaAdmin = "rolling123"
-
-    let usuariosRegistrados = []
-    if (localStorage.getItem("usuarioLogin")) {
-    usuariosRegistrados = JSON.parse(localStorage.getItem("usuarioLogin"))
-    }
-
-    class usuarioLogin {
-    constructor( usuario, contraseña){
-        this.usaurio = usuario
-        this.contraseña = contraseña
-    }
-    }
 if (document.title === "Administracion") {
     const botonAgregar = document.getElementById("button-addon2")
     const inputNombre = document.getElementById("inputNombre")
@@ -176,18 +208,50 @@ if (document.title === "Administracion") {
     divUsuarios.innerHTML = userTemplate;
 
 }
-if(document.title=="Registro"){
-    botonLogin.addEventListener("click", (e) => {
-    const usuario = inputUsuario.value
-    const contraseña = inputContraseña.value
-    const nuevoUsuarioRegistrado = new usuarioLogin( usuario, contraseña )
-    usuariosRegistrados.push(nuevoUsuarioRegistrado)
-    localStorage.setItem('usuarioLogin', JSON.stringify(usuariosRegistrados))
-    if (usuario === usuarioAdmin && contraseña === contraseñaAdmin) {
-        location.href ="/html/administracion.html";
-    } else {
-        alert("Usuario y/o contraseña incorrecto.")
+if(document.title==="registro") {
+    console.log("hola")
+    const botonRegistro = document.getElementById("button-addon2")
+    const inputNombre = document.getElementById("inputNombreU")
+    const inputApellido = document.getElementById("inputApellido")
+    const inputEmail = document.getElementById("inputEmail")
+    const inputPassword1 = document.getElementById("inputPassword1")
+    const inputPassword2 = document.getElementById("inputPassword2")
+
+    let usuarios = []
+    if (localStorage.getItem("Usuario")) {
+        usuarios = JSON.parse(localStorage.getItem("Usuario"))
     }
-    })
-}
-}
+    
+    class Usuario {
+        constructor( nombre, apellido, email, password1){
+            this.nombre = nombre
+            this.apellido = apellido
+            this.email = email
+            this.password = password1
+        }
+    }
+    
+    botonRegistro.addEventListener("click", (e) => {
+        const nombre = inputNombre.value
+        const apellido = inputApellido.value
+        const email = inputEmail.value.toLowerCase()
+        const password1 = inputPassword1.value
+        const password2 = inputPassword2.value
+        usuarios.map((usuario) => {
+          if (usuario.email === email) {
+            alert("El email ya se encuentra registrado.")
+            return false
+          };
+        });
+        if (password1 != password2) {
+            alert("Las contraseñas no coinciden.")
+            return false
+        }
+        const nuevoUsuario = new Usuario( nombre, apellido, email, password1)
+        usuarios.push(nuevoUsuario)
+        localStorage.setItem('Usuario', JSON.stringify(usuarios))
+        alert("Gracias por registrarse")
+        location.href ="/index.html";
+      })
+    
+    }
